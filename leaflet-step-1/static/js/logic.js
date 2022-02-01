@@ -1,5 +1,7 @@
+//map token
 var map = L.map('map').setView([40, -95], 3);
 
+//tile layer
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -9,9 +11,30 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: API_KEY
 }).addTo(map);
 
-
+//get request to url to geoJSON 
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then(data => {
 console.log(data);
+
+//create geoJSON layer 
+L.geoJSON(data,{
+
+
+    pointToLayer: function(point, coords){
+        return L.circleMarker(coords, pickSize(magnitude));
+    },
+
+    style:styleMarkers,
+
+    //pop up for additional information 
+    onEachFeature: function(feature, layer){
+        layer.bindPopup("Magnitude: "+ feature.properties.mag + "<br>Location: " + feature.properties.place);
+        
+    }
+
+
+ }).addTo(map);
+
+
 
 function pickColor(depth) {
 
@@ -28,7 +51,7 @@ function pickColor(depth) {
     }
 
 }
-
+//set radius for magnitude
 function pickSize(mag){
 
     if (mag === 0){
@@ -48,30 +71,10 @@ function styleMarkers(feature){
         }
     }
 
+    //creation of legend
+function mapLegend (map){
 
-
-
-
-
-    L.geoJSON(data,{
-
-
-        
-        pointToLayer: function(point, coords){
-            return L.circleMarker(coords);
-        },
-
-        
-        style:styleMarkers,
-
-
-        onEachFeature: function(feature, layer){
-            layer.bindPopup(feature.properties.mag);
-            
-        }
-    
-    
-    }).addTo(map);
+}
     
     })
 
