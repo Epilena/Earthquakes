@@ -52,7 +52,7 @@ function pickColor(depth) {
 
 }
 //set radius for magnitude
-function pickSize(mag){
+function pickSize(magnitude){
 
     if (mag === 0){
         return 1;
@@ -63,11 +63,15 @@ function pickSize(mag){
 
 }
 
-
+// function to make style of marker
 function styleMarkers(feature){
     return{
+        opacity: 1,
+        fillOpacity: 1,
         fillColor:pickColor(feature.geometry.coordinates[2]),
-        radius:pickSize(feature.properties.mag)
+        radius:pickSize(feature.properties.mag),
+        stroke: true,
+        weight: 0.5
         }
     }
 
@@ -76,7 +80,6 @@ function mapLegend (map){
 
 }
     
-    })
-
+    });
 
 
