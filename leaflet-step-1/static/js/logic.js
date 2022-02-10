@@ -12,7 +12,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(map);
 
 //get request to url to geoJSON 
-d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then(data => {
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(data => {
 console.log(data);
 
 //create geoJSON layer 
@@ -20,7 +20,7 @@ L.geoJSON(data,{
 
 
     pointToLayer: function(point, coords){
-        return L.circleMarker(coords, pickSize(magnitude));
+        return L.circleMarker(coords);
     },
 
     style:styleMarkers,
@@ -38,13 +38,13 @@ L.geoJSON(data,{
 
 function pickColor(depth) {
 
-    switch (depth) {
+    switch (true) {
 
-        case depth > 500:
+        case depth > 90:
             return "#005F73";
-        case depth > 300:
+        case depth > 50:
             return "#0A9396";
-        case depth > 100:
+        case depth > 10:
             return "#E9D8A6"
 
         default: return "#001219"
@@ -54,7 +54,7 @@ function pickColor(depth) {
 //set radius for magnitude
 function pickSize(magnitude){
 
-    if (mag === 0){
+    if (magnitude === 0){
         return 1;
     }
 
@@ -76,9 +76,21 @@ function styleMarkers(feature){
     }
 
     //creation of legend
-function mapLegend (map){
+    var legend = L.control({position: "bottomright"});
 
-}
+    legend.onAdd = function() {
+        var div = L.DomUtil.create("div", "info legend");
+        var l_depth = [-10, 10, 50, 90]
+        var colors = ["#001219", "#E9D8A6", "#0A9396", "#005F73"];
+
+        //loop through the depths to put in the labeling
+        for (var i =0; i < l_depth.length; i++){
+            div.innerHTML += "<i style= 'background: "+ colors[i] +"'></i> " + l_depth[i] +(l_depth[i+1] ? "&ndash;" + l_depth[i +1] + "<br>": "+");  
+        }
+        return div;
+    }
+
+    legend.addTo(map)
     
     });
 
