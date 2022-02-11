@@ -41,13 +41,13 @@ function pickColor(depth) {
     switch (true) {
 
         case depth > 90:
-            return "#005F73";
+            return "#001219";
         case depth > 50:
-            return "#0A9396";
+            return "#005F73";
         case depth > 10:
-            return "#E9D8A6"
+            return "#0A9396"
 
-        default: return "#001219"
+        default: return "#E9D8A6"
     }
 
 }
@@ -81,7 +81,7 @@ function styleMarkers(feature){
     legend.onAdd = function() {
         var div = L.DomUtil.create("div", "info legend");
         var l_depth = [-10, 10, 50, 90]
-        var colors = ["#001219", "#E9D8A6", "#0A9396", "#005F73"];
+        var colors = ["#E9D8A6","#0A9396", "#005F73","#001219"];
 
         //loop through the depths to put in the labeling
         for (var i =0; i < l_depth.length; i++){
