@@ -8,7 +8,7 @@ United States Geological Survey (USGS) data was utilized in the creation of a le
 To complete the task of visualizing the earthquakes, HTML and JavaScript were necessary.  A static file was required for the CSS and JavaScript files.  A JSON file was obtained from USGS to visualize.  There are a number of endpoints, all_week was selected to increase the number of markers when compared to a by day endpoint.  A map was created utilizing leaflet and several functions were needed to have marker color determined by depth and marker size determined by magnitude.  Earthquakes with higher magnitudes appear larger and earthquakes at a greater depth appear darker. Popups with additional information and a legend were created to complete the project. 
 
 ### Results
-
+Deployment: https://epilena.github.io/Earthquakes/
 
 
 ![final result](https://user-images.githubusercontent.com/88807979/153587504-3a4304d3-300b-4d17-942d-a5ad9cc93e3a.png)
